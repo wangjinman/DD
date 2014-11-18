@@ -40,13 +40,32 @@ public class Player : Character {
 		OnInit();
 	}
 
-	public void HandleInput(InputData data){
+
+	void OnEnable(){
+		//playerInput.UnlockJump();
+		//playerInput.UnlockMove();
+	}
+	
+	// Update is called once per frame
+	void Update () {
+		Tick();
+		//motor.MotorVelocity = velocity;
+	}
+
+	protected override void OnInit(){
+		DD.EventCore.GetInstance().AddEventListener("input",HandleInput);
+		Combo = 0;
+		base.OnInit();
+	}
+	
+	public void HandleInput(DD.GameEvent e){
+		InputData data = e.args as InputData;
 		Vector3 velocity = new Vector3();
 		if(controller.isGrounded )
 		{
 			inDoubleJump = false;
 		}
-
+		
 		if (data.move.x != 0.0f){
 			velocity.x = data.move.x;
 		}
@@ -63,33 +82,18 @@ public class Player : Character {
 				inDoubleJump = true;
 			}
 		}
-
+		
 		if (data.useSkill1){
 			skills[0].Use(this);
 		}
-
+		
 		if (data.useSkill2){
 			skills[1].Use(this);
 		}
-
+		
 		motor.AddSelfMove(velocity.x,velocity.y);
 	}
 
-	void OnEnable(){
-		//playerInput.UnlockJump();
-		//playerInput.UnlockMove();
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		Tick();
-		//motor.MotorVelocity = velocity;
-	}
-
-	protected override void OnInit(){
-		Combo = 0;
-		base.OnInit();
-	}
 
 	protected override void Tick(){
 		if (comboTimer > 0.0f)

@@ -75,7 +75,10 @@ public class InputManager : MonoBehaviour
 			data.useSkill2 = true;
 		}
 
-		player.HandleInput(data);
+		//player.HandleInput(data);
+		DD.GameEvent e = new DD.GameEvent("input",this);
+		e.args = data;
+		DD.EventCore.GetInstance().SendEvent(e);
 		//motor.MotorVelocity = velocity;
 	}
 
