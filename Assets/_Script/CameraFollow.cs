@@ -24,7 +24,7 @@ public class CameraFollow : MonoBehaviour {
 	void Start () {
 		Transport(this.transform.position);
 	}
-
+	//test
 	void Transport(Vector3 newPos) {
 		//orgPos = newPos;
 		maxPos = max + newPos;
