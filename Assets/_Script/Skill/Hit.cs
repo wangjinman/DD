@@ -18,6 +18,12 @@ namespace DD
 
 		public object Attacker {get;set;}
 
+		public float pushForceX = 0.0f;
+		public float pushForceY = 0.0f;
+
+		public float HitPosiontX = 0.0f;
+		public float HitPostionY = 0.0f;
+
 		public Hit(int damage,object attacker){
 			this.Attacker = attacker;
 			ID = ID_COUNT++;

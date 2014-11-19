@@ -77,7 +77,7 @@ public class InputManager : MonoBehaviour
 
 		//player.HandleInput(data);
 		DD.GameEvent e = new DD.GameEvent("input",this);
-		e.args = data;
+		e.objArg0 = data;
 		DD.EventCore.GetInstance().SendEvent(e);
 		//motor.MotorVelocity = velocity;
 	}

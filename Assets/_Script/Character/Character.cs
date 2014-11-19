@@ -29,6 +29,7 @@ public class Character : MonoBehaviour {
 	public Motor2D motor {get;set;}
 	public CharacterController2D controller {get;set;}
 
+	private DD.Hit lastHit;
 	
 	//是否无敌//
 	public bool Invincible {
@@ -55,14 +56,28 @@ public class Character : MonoBehaviour {
 	protected virtual void Tick(){
 	}
 
-	public virtual void OnHit(Character attacker,int damage){
+	public virtual void OnHit(DD.Hit hit){
+		if (invincible){
+			return;
+		}
+
+		if (IsDie()){
+			return;
+		}
+
+		//不被同一个伤害击中俩次//
+		if (lastHit != null && (hit == lastHit || hit.ID == lastHit.ID)){
+			return;
+		}
+
+		Character attacker = hit.Attacker as Character;
 		if (Invincible)
 			return;
 
 		if (HP <= 0)
 			return;
 
-		int trueDamage = damage - Defend;
+		int trueDamage = hit.damage - Defend;
 		trueDamage = trueDamage <= 0 ? 1 : trueDamage;
 		HP -= trueDamage;
 		if (HP <= 0){
@@ -73,6 +88,17 @@ public class Character : MonoBehaviour {
 		}
 		//invincibleAfterDamgeTimer = invincibleTimeAfterDamage;
 		StartCoroutine(InvincibleCroutine());
+		lastHit = hit;
+	}
+
+	//被击中后的后退//
+	void HitPushBack(DD.Hit hit){
+		float dir = 1.0f;
+		if (hit.HitPosiontX > transform.position.x){
+			dir = -1.0f;
+		}
+		motor.AddAdditionVelocity(hit.pushForceX * dir,hit.pushForceY);
+
 	}
 
 	public virtual void OnHitOther(Character other){

@@ -59,7 +59,7 @@ public class Player : Character {
 	}
 	
 	public void HandleInput(DD.GameEvent e){
-		InputData data = e.args as InputData;
+		InputData data = e.objArg0 as InputData;
 		Vector3 velocity = new Vector3();
 		if(controller.isGrounded )
 		{

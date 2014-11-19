@@ -9,7 +9,8 @@ namespace DD{
 		public object sender {get;set;}
 		public int arg0;
 		public int arg1;
-		public object args;
+		public object objArg0;
+		public object objArg1;
 
 		public GameEvent(string type,object sender){
 			this.type = type;

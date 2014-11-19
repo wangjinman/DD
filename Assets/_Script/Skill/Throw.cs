@@ -37,9 +37,9 @@ public class Throw : SkillBase {
 		float currentforce = force + forceIncreasement * i;
 		float currentAgel = startAngel + angelIncreasement * i;
 		GameObject go = Instantiate(throwObj,currentPos,Quaternion.identity) as GameObject;
-		HitTriggerForChar hit = go.GetComponent<HitTriggerForChar>();
+		ContinuesHit hit = go.GetComponent<ContinuesHit>();
 		if (hit == null){
-			hit = go.GetComponentInChildren<HitTriggerForChar>();
+			hit = go.GetComponentInChildren<ContinuesHit>();
 		}
 		if (hit != null){
 			hit.Attacker = user;
