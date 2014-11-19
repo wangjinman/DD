@@ -32,7 +32,6 @@ public class CameraFollow : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	//test
 	void LateUpdate () {
 		Vector3 targetPos = target.transform.position;
 		Vector3 myPos = this.transform.position;
